@@ -1,0 +1,48 @@
+extension UITextField {
+
+   public enum AcceptableCharacters : String {
+        case Alpha_Space = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz "
+        case Alpha_Space_Dot = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ."
+        case Alpha_Dot = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz."
+        case Alpha_Numberic = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+        case Alpha_Numberic_With_Space = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 "
+        case Alpha_Numberic_With_Dot = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789."
+        case Alpha_Numberic_With_Space_Dot = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 ."
+        case Numeric = "0123456789"
+        case Numeric_Dot = "0123456789."
+        
+    }
+    
+    class func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String,acceptableCharacters:AcceptableCharacters) -> Bool{
+        
+        var acceptableCharactersAsString:String = AcceptableCharacters.Alpha_Numberic_With_Space_Dot.rawValue;
+        
+        switch (acceptableCharacters) {
+        case .Alpha_Numberic:
+            acceptableCharactersAsString = AcceptableCharacters.Alpha_Numberic.rawValue;
+        case .Alpha_Numberic_With_Space:
+            acceptableCharactersAsString = AcceptableCharacters.Alpha_Numberic_With_Space.rawValue;
+        case .Alpha_Numberic_With_Dot:
+            acceptableCharactersAsString = AcceptableCharacters.Alpha_Numberic_With_Dot.rawValue;
+        case .Alpha_Numberic_With_Space_Dot:
+            acceptableCharactersAsString = AcceptableCharacters.Alpha_Numberic_With_Space_Dot.rawValue;
+        case .Numeric:
+            acceptableCharactersAsString = AcceptableCharacters.Numeric.rawValue;
+        case .Numeric_Dot:
+            acceptableCharactersAsString = AcceptableCharacters.Numeric_Dot.rawValue;
+        case .Alpha_Space:
+            acceptableCharactersAsString = AcceptableCharacters.Alpha_Space.rawValue;
+        case .Alpha_Space_Dot:
+            acceptableCharactersAsString = AcceptableCharacters.Alpha_Space_Dot.rawValue;
+        case .Alpha_Dot:
+            acceptableCharactersAsString = AcceptableCharacters.Alpha_Dot.rawValue;
+        }
+        
+        let cs:NSCharacterSet = NSCharacterSet(charactersInString: acceptableCharactersAsString).invertedSet
+        let filtered = string.componentsSeparatedByCharactersInSet(cs).joinWithSeparator("")
+        
+        return string == filtered
+        
+    }
+
+}
